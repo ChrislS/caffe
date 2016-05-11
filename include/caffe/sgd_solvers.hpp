@@ -19,6 +19,9 @@ class SGDSolver : public Solver<Dtype> {
       : Solver<Dtype>(param) { PreSolve(); }
   explicit SGDSolver(const string& param_file)
       : Solver<Dtype>(param_file) { PreSolve(); }
+  SGDSolver(const string &param_file,
+            shared_ptr<Net<Dtype> > net)
+      : Solver<Dtype>(param_file, net) { PreSolve(); }
   virtual inline const char* type() const { return "SGD"; }
 
   const vector<shared_ptr<Blob<Dtype> > >& history() { return history_; }
@@ -52,6 +55,9 @@ class NesterovSolver : public SGDSolver<Dtype> {
       : SGDSolver<Dtype>(param) {}
   explicit NesterovSolver(const string& param_file)
       : SGDSolver<Dtype>(param_file) {}
+  NesterovSolver(const string &param_file,
+                 shared_ptr<Net<Dtype> > net)
+      : SGDSolver<Dtype>(param_file, net) {}
   virtual inline const char* type() const { return "Nesterov"; }
 
  protected:
@@ -67,6 +73,9 @@ class AdaGradSolver : public SGDSolver<Dtype> {
       : SGDSolver<Dtype>(param) { constructor_sanity_check(); }
   explicit AdaGradSolver(const string& param_file)
       : SGDSolver<Dtype>(param_file) { constructor_sanity_check(); }
+  AdaGradSolver(const string &param_file,
+                shared_ptr<Net<Dtype> > net)
+      : SGDSolver<Dtype>(param_file, net) { constructor_sanity_check(); }
   virtual inline const char* type() const { return "AdaGrad"; }
 
  protected:
@@ -87,6 +96,9 @@ class RMSPropSolver : public SGDSolver<Dtype> {
       : SGDSolver<Dtype>(param) { constructor_sanity_check(); }
   explicit RMSPropSolver(const string& param_file)
       : SGDSolver<Dtype>(param_file) { constructor_sanity_check(); }
+  explicit RMSPropSolver(const string& param_file,
+                         shared_ptr<Net<Dtype> > net)
+      : SGDSolver<Dtype>(param_file, net) { constructor_sanity_check(); }
   virtual inline const char* type() const { return "RMSProp"; }
 
  protected:
@@ -110,6 +122,9 @@ class AdaDeltaSolver : public SGDSolver<Dtype> {
       : SGDSolver<Dtype>(param) { AdaDeltaPreSolve(); }
   explicit AdaDeltaSolver(const string& param_file)
       : SGDSolver<Dtype>(param_file) { AdaDeltaPreSolve(); }
+  explicit AdaDeltaSolver(const string& param_file,
+                          shared_ptr<Net<Dtype> > net)
+      : SGDSolver<Dtype>(param_file, net) { AdaDeltaPreSolve(); }
   virtual inline const char* type() const { return "AdaDelta"; }
 
  protected:
@@ -134,6 +149,9 @@ class AdamSolver : public SGDSolver<Dtype> {
       : SGDSolver<Dtype>(param) { AdamPreSolve();}
   explicit AdamSolver(const string& param_file)
       : SGDSolver<Dtype>(param_file) { AdamPreSolve(); }
+  explicit AdamSolver(const string& param_file,
+                      shared_ptr<Net<Dtype> > net)
+      : SGDSolver<Dtype>(param_file, net) { AdamPreSolve(); }
   virtual inline const char* type() const { return "Adam"; }
 
  protected:

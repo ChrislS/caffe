@@ -43,7 +43,11 @@ class Solver {
   explicit Solver(const SolverParameter& param,
       const Solver* root_solver = NULL);
   explicit Solver(const string& param_file, const Solver* root_solver = NULL);
+  Solver(const string& param_file,
+         shared_ptr<Net<Dtype> > &net);
   void Init(const SolverParameter& param);
+  void InitForNet(const SolverParameter& param,
+                  shared_ptr<Net<Dtype> > &net);
   void InitTrainNet();
   void InitTestNets();
 
